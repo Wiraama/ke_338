@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 50px;
+		}
+
+		form {
+			max-width: 400px;
+			margin: auto;
+			padding: 50px;
+		}
+
+		label, input, select, button {
+			display: block;
+			width: 100%;
+			margin-bottom: 10px;
+		}
+
+		button { 
+			padding: 10px;
+			background-color: #28a745;
+			color: white;
+			border: none;
+			cursor: pointer;
+		}
+
+		button:hover {
+			background-color: #218838;
+		}
+	</style>
+</head>
+<body>
+    <h2>Upload</h2>
+    <form action="{{ url_for('admin') }}" method="POST">
+        <input type="number" id="ben_number" placeholder="Benaficiary Number" name="ben_number" required>
+		
+		
+		<select id="role" name="role" required>
+            <option value="Parent">Parent</option>
+            <option value="Student">Student</option>
+        </select><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

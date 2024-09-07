@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 20px;
+		}
+
+		h2, h3 {
+			text-align: center;
+		}
+
+		table {
+			width: 80%;
+			margin: auto;
+			border-collapse: collapse;
+		}
+
+		table, th, td {
+			border: 1px solid black;
+		}
+
+		th, td {
+			padding: 10px;
+			text-align: center;
+		}
+
+		form {
+			width: 50%;
+			margin: 20px auto;
+		}
+
+		label, input, select, button {
+			display: block;
+			width: 100%;
+			margin-bottom: 10px;
+		}
+
+		button {
+			padding: 10px;
+			background-color: #28a745;
+			color: white;
+			border: none;
+			cursor: pointer;
+		}
+
+		button:hover {
+			background-color: #218838;
+		}
+	</style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h2>Admin Dashboard</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Role</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.f_name }}</td>
+                <td>{{ user.s_name }}</td>
+                <td>{{ user.role }}</td>
+                <td>
+                    <a href="{{ url_for('view_user', user_id=user.id) }}">View</a>
+                    <a href="{{ url_for('delete_user', user_id=user.id) }}">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h3>Add New User</h3>
+    <form action="{{ url_for('add_user') }}" method="POST">
+        <label for="f_name">First Name:</label><br>
+        <input type="text" id="f_name" name="f_name" required><br><br>
+
+        <label for="s_name">Last Name:</label><br>
+        <input type="text" id="s_name" name="s_name" required><br><br>
+
+        <label for="role">Role:</label><br>
+        <select id="role" name="role" required>
+            <option value="Parent">Parent</option>
+            <option value="Student">Student</option>
+            <option value="Admin">Admin</option>
+        </select><br><br>
+
+        <button type="submit">Add User</button>
+    </form>
+</body>
+</html>

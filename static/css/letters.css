@@ -1,0 +1,47 @@
+body {
+        font-family: Roboto, san-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+        justify-content: center;
+        height: 100vh;
+		overflow: hidden;
+}
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('logo1.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(5px) grayscale(50%) brightness(80%);
+    z-index: -1; /* Ensure the background stays behind the content */
+}
+
+    header {
+        background-color: #070a52;
+        color: #fff;
+        padding: 10px 0;
+        width: 100%;
+        text-align: center;
+}
+
+    main {
+        padding: 10px;
+        text-align: left;
+}
+
+    footer {
+        margin-top: auto;
+        background-color: #070a52;
+        color: white;
+        padding: 1px 0;
+        width: 100%;
+        text-align: center;
+}
