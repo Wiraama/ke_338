@@ -1,0 +1,11 @@
+version: "1"
+app:
+  language: python
+  python:
+    version: "3.8"
+  packages:
+    - flask
+    - flask_sqlalchemy
+    - gunicorn
+  start:
+    command: gunicorn -w 4 -b 0.0.0.0:8000 app:app
