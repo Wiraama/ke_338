@@ -1,0 +1,196 @@
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+body {
+		font-family: Poppins, sans-serif;
+		margin: 0;
+		padding: 0;
+		background-color: #08021a;
+		color: #f2e9e9;
+	}
+
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 20px;
+	}
+
+	.header {
+		background-color: #080317;
+		color: #fff;
+		padding: 15px 0;
+	}
+
+	.header .logo {
+		float: left;
+		font-size: 24px;
+		font-weight: bold;
+	}
+
+	.header .nav {
+		float: right;
+	}
+
+	.header .nav ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.header .nav ul li {
+		display: inline;
+		margin-left: 15px;
+	}
+
+	.header .nav ul li a {
+		color: #fff;
+		text-decoration: none;
+		font-weight: bold;
+	}
+
+	.hero {
+		color: #fff;
+		padding: 100px 0;
+		text-align: center;
+		position: relative;
+	}
+
+	.hero .btn {
+		background-color: #fff;
+		color: #5cb85c;
+		padding: 10px 20px;
+		text-decoration: none;
+		font-weight: bold;
+		border-radius: 5px;
+		margin-top: 20px;
+	}
+
+	.features {
+		padding: 50px 0;
+		background-color: #080317;
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+	}
+
+	.features h2 {
+		text-align: center;
+		margin-bottom: 50px;
+	}
+
+	.features .feature-item {
+		text-align: center;
+		margin-bottom: 30px;
+	}
+
+	.about {
+		padding: 50px 0;
+		background-color: #080317;
+	}
+
+	.about h2 {
+		text-align: center;
+		margin-bottom: 20px;
+	}
+
+	.contact {
+		padding: 100px 0;
+		position: relative;
+	}
+
+	.contact h2 {
+		text-align: center;
+		margin-bottom: 20px;
+	}
+
+	.contact form {
+		max-width: 600px;
+		margin: 0 auto;
+		text-align: center;
+	}
+
+	.contact form input,
+	.contact form textarea {
+		width: 100%;
+		padding: 10px;
+		margin: 10px 0;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+	}
+
+	.contact form .btn {
+		background-color: #5cb85c;
+		color: #fff;
+		padding: 10px 20px;
+		border: none;
+		border-radius: 5px;
+		cursor: pointer;
+	}
+
+	.footer {
+		background-color: #1a1202;
+		color: #fff;
+		text-align: center;
+		padding: 20px 0;
+		margin-top: 50px;
+	}
+
+	.footer p {
+		margin: 0;
+	}
+	img {
+		max-width: 100%
+	}
+	#slider figure {
+		width: 500%;
+		margin: 0;
+		left: 0;
+		position: relative;
+		animation: 15s slider infinite;
+		height: 100%;
+		display: flex;
+	}
+	#slider figure img {
+		width: 20%;
+		float: left;
+		object-fit: cover;
+	}
+	#slider {
+		overflow: hidden;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: -1;
+	}
+	@keyframes slider {
+		0% {
+			left: 0%;
+		}
+		20% {
+			left: 0%;
+		}
+		25% {
+			left: -100%;
+		}
+		45% {
+			left: -100%;
+		}
+		50% {
+			left: -200%;
+		}
+		70% {
+			left: -200%;
+		}
+		75% {
+			left: -300%;
+		}
+		90% {
+			left: -300%;
+		}
+		95% {
+			left: -400%;
+		}
+		100% {
+			left: -400%
+		}
+	}

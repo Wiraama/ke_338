@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    <link rel="stylesheet" href="static/css/Landing.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">KE-338 Mukothima CDC</h1>
+            <nav class="nav">
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+		<div id="slider" class="slider">
+			<figure>
+				<img src="static/images/1.png" alt="Image 1">
+				<img src="static/images/2.png" alt="Image 2">
+				<img src="static/images/3.png" alt="Image 3">
+				<img src="static/images/4.png" alt="Image 4">
+				<img src="static/images/1.png" alt="Image 5">
+			</figure>
+        </div>
+        <div class="container">
+            <h2>Welcome to Ke 338 Mukothima CDC</h2>
+            <p>At the Children’s Compassion Center, we are dedicated to creating a nurturing and supportive environment where every child can thrive. Our mission is to foster a sense of community, safety, and love, ensuring that each child has the opportunity to reach their fullest potential.</p>
+            <a href="{{ url_for('register') }}" class="btn">Get Started</a>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <h2>Features</h2>
+            <div class="feature-item">
+                <h3>Educational Erichment</h3>
+                <p>Our curriculum is designed to spark curiosity and ignite a love of learning. We offer a range of educational activities, from interactive learning sessions to creative workshops, tailored to meet the needs of each child.</p>
+            </div>
+            <div class="feature-item">
+                <h3>Emotional Support</h3>
+                <p>Our dedicated team of counselors and caregivers provide emotional support and guidance to help children navigate their feelings and build resilience. We offer one-on-one counseling, group therapy, and workshops focused on emotional well-being.</p>
+            </div>
+            <div class="feature-item">
+                <h3>Community Engagements</h3>
+                <p>We believe in the power of community and actively involve children in various community service projects. These activities teach the value of empathy, responsibility, and giving back to others</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <h2>About Us</h2>
+            <p>At EAPC Mukothima CDC, we are dedicated to creating a nurturing and supportive environment where every child can thrive. Our mission is to foster a sense of community, safety, and love, ensuring that each child has the opportunity to reach their fullest potential</p>
+        </div>
+    </section>
+    <section id="contact" class="contact">
+		<div id="slider" class="slider">
+			<figure>
+				<img src="static/images/7.png" alt="Image 1">
+				<img src="static/images/6.png" alt="Image 2">
+				<img src="static/images/10.png" alt="Image 3">
+				<img src="static/images/8.png" alt="Image 4">
+				<img src="static/images/7.png" alt="Image 5">
+			</figure>
+        </div>
+        <div class="container">
+            <h2>Contact Us</h2>
+            <p>Get in touch with us for more information.</p>
+            <form>
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Your Message" required></textarea>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Wiriama. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

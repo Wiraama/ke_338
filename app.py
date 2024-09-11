@@ -223,7 +223,12 @@ def post_letters():
     letters = Letters.query.all()
     
     return render_template('post_letters.html', letters=letters, full_name=full_name)
-    
+
+
+# landing page
+@app.route('/landing')
+def landing():
+    return render_template('land.html')
 
 
 @app.route('/admin', methods=['GET', 'POST'])
@@ -251,9 +256,7 @@ def letter():
     return render_template('letters.html')
 
 
-
-
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-    app.run(host='0.0.0.0', port=8000)
+    app.run(host='0.0.0.0', port=8000, debug=True)
