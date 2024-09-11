@@ -230,7 +230,7 @@ def post_letters():
 def landing():
     first_time = request.cookies.get('first_time')
     if first_time:
-        return redirect(url_for('home'))
+        return redirect(url_for('landing'))
     else:
         response = make_response(redirect(url_for('landing')))
         response.set_cookie('first_time', 'no', max_age=60*60*24*30*12)
