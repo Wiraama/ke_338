@@ -228,7 +228,13 @@ def post_letters():
 # landing page
 @app.route('/landing')
 def landing():
-    return render_template('land.html')
+    first_time = request.cookies.get('first_time')
+    if first_time:
+        return redirect(url_for('home'))
+    else:
+        response = make_response(redirect(url_for('landing')))
+        response.set_cookie('first_time', 'no', max_age=60*60*24*30*12)
+        return response
 
 
 @app.route('/admin', methods=['GET', 'POST'])
