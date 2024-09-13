@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 import os, base64
 from send_mail import send_email
 from functools import wraps
-
+from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = os.urandom(16)
@@ -164,7 +164,7 @@ def admin_login():
     
 
 class Announce(db.Model):
-    __tablename__ = 'data'
+    __tablename__ = 'announce'
     id = db.Column(db.Integer, primary_key=True)
     category = db.Column(db.String, nullable=False)
     infomation = db.Column(db.String(500))
@@ -175,15 +175,55 @@ def announce_data():
         category = request.form.get('category')
         infomation = request.form.get('infomation')
 
-        new_data = Data(
+        new_data = Announce(
             category=category,
             infomation=infomation,
             )
         db.session.add(new_data)
         db.session.commit()
-        return redirect('announce_data')
-    data = Announce.query.all()
-    return render_template('announce.html', data=data)
+        return redirect(url_for('announce_data'))
+    announce = Announce.query.all()
+    return render_template('announce.html', announce=announce)
+
+# delete
+@app.route('/delete_announce/<int:id>', methods=['POST'])
+def delete_announce(id):
+    delete_data = Announce.query.get(id)
+    db.session.delete(delete_data)
+    db.session.commit()
+    return redirect(url_for('announce_data'))
+
+# Events
+class Events(db.Model):
+    __tablename__ = 'events'
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.Date, nullable=False)
+    infomation = db.Column(db.String(500))
+    
+@app.route('/events', methods=['GET', 'POST'])
+def events():
+    if request.method == 'POST':
+        date_html = request.form.get('date')
+        infomation = request.form.get('infomation')
+        date = datetime.strptime(date_html, '%Y-%m-%d').date()
+
+        new_data = Events(
+            date=date,
+            infomation=infomation,
+            )
+        db.session.add(new_data)
+        db.session.commit()
+        return redirect(url_for('events'))
+    events = Events.query.all()
+    return render_template('events.html', events=events)
+    
+# delete
+@app.route('/delete_events/<int:id>', methods=['POST'])
+def delete_events(id):
+    delete_data = Events.query.get(id)
+    db.session.delete(delete_data)
+    db.session.commit()
+    return redirect(url_for('events'))
 
 # delete
 @app.route('/delete/<int:id>', methods=['POST'])
@@ -225,12 +265,43 @@ def post_letters():
     return render_template('post_letters.html', letters=letters, full_name=full_name)
 
 
+# sorting
+def merge_sort(array):
+    if len(array) > 1:
+        mid = len(array) // 2
+        left_half = array[:mid]
+        right_half = array[mid:]
+        merge_sort(left_half)
+        merge_sort(right_half)
+
+        i = j = k = 0
+        while i < len(left_half) and j < len(right_half):
+            if left_half[i] < right_half[j]:
+                array[k] = left_half[i]
+                i += 1
+            else:
+                array[k] = right_half[j]
+                j += 1
+            k += 1
+
+        while i < len(left_half):
+            array[k] = left_half[i]
+            i += 1
+            k += 1
+
+        while j < len(right_half):
+            array[k] = right_half[j]
+            j += 1
+            k += 1
+    return array
+
+
 # landing page
 @app.route('/landing')
 def landing():
     first_time = request.cookies.get('first_time')
     if first_time:
-        return redirect(url_for('landing'))
+        return redirect(url_for('home'))
     else:
         response = make_response(redirect(url_for('landing')))
         response.set_cookie('first_time', 'no', max_age=60*60*24*30*12)
@@ -248,12 +319,14 @@ def admin():
 def home():
     ben_number = session.get('ben_number')
     user = User.query.filter_by(ben_number=ben_number).first()
-    data = Announce.query.all()
-    
+    announce = Announce.query.all()
+    events = Events.query.all()
+
+
     if user:
         full_name = f"{user.f_name} {user.s_name}"
         
-    return render_template('home.html', full_name=full_name, data=data)
+    return render_template('home.html', events=events, full_name=full_name, announce=announce)
 
 # letter part
 @app.route('/letter')
@@ -265,4 +338,4 @@ def letter():
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-    app.run(host='0.0.0.0', port=8000)
+    app.run(host='0.0.0.0', port=8000, debug=True)

@@ -1554,3 +1554,22 @@ img {
     font-size: 100px;
   }
 }
+    table {
+        border-collapse: collapse; /* Ensures borders do not double up */
+        width: 100%; /* Optional: Makes table full-width */
+    }
+
+    th, td {
+        padding: 10px; /* Adjusts cell padding */
+        text-align: left; /* Align text to the left */
+        border: 1px solid black; /* Adds border to each cell */
+    }
+
+    th {
+        background-color: #f2f2f2; /* Optional: Adds a background color to the header */
+    }
+
+    /* Optional: Adds hover effect */
+    tr:hover {
+        background-color: #f5f5f5;
+    }

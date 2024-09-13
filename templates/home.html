@@ -158,9 +158,15 @@
         <span></span>
         <h2 style="font-family: playwrite cuba;">Ke-338 Mukothima</h2>
 		<form method='POST' style="font-family: playwrite cuba;">
-			{% if data %}
-				{% for info in data %}
-					<p>{{ info.infomation }}</p>
+			{% if announce %}
+				{% for info in announce %}
+				{% if info.category == "Parent" %}
+					<p style="background-color: green">{{ info.infomation }}</p>
+				{% endif %}
+				
+				{% if info.category == "Student" %}
+					<p style="background-color: yellow">{{ info.infomation }}</p>
+				{% endif %}
 				{% endfor %}
 			{% else %}
 				<p>No Announcement Available</p>
@@ -180,8 +186,34 @@
         <h4 style="font-family: playwrite cuba;">Events</h4>
         <span></span>
         <h2 style="font-family: playwrite cuba;">Upcoming Events</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor amet error eius reiciendis eum sint unde eveniet deserunt est debitis corporis temporibus recusandae accusamus.</p>
-        <a href="#" class="mu-read-more-btn">Read More</a>
+		<div class="form-out">
+			{% if events %}
+			<table>
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Events</th>
+						<th>Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for event in events %}
+					<tr>
+						<td>{{ event.id }}</td>
+						<td>{{ event.infomation }}</td> <!-- Corrected spelling -->
+						<td>{{ event.date }}</td>
+						<td>
+						</td>
+					</tr> <!-- Correctly closed <tr> -->
+					{% endfor %}
+				</tbody>
+			</table>
+			{% else %}
+			<p>
+				No Upcoming Events<br>
+				Enjoy the silence
+			</p>
+			{% endif %}
       </div>
     </div>
     <!-- Start single slider item -->
@@ -196,8 +228,7 @@
         <h4 style="font-family: playwrite cuba;">Graduating Students</h4>
         <span></span>
         <h2 style="font-family: playwrite cuba;">Bye Bye</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor amet error eius reiciendis eum sint unde eveniet deserunt est debitis corporis temporibus recusandae accusamus.</p>
-        <a href="#" class="mu-read-more-btn">Read More</a>
+        <p>Nothing Here</p>
       </div>
     </div>
     <!-- Start single slider item -->    

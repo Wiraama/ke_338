@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events uploader</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+			background-image: url('/static/images/teach.png');
+			background-size: cover;
+			background-repeat: no-repeat;
+			background-position: center;
+        }
+
+        form {
+            max-width: 400px;
+            margin: auto;
+            padding: 50px;
+        }
+
+        label, input, select, textarea, button {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+			background-color: #171159;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .form-out {
+            width: 100%;
+            max-width: 500px; /* Limit the width of the form */
+            margin: 20px auto; /* Center horizontally */
+        }
+
+        .form-out p {
+            margin-bottom: 5px;
+        }
+		select {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #fff;
+		}
+
+        .form-out button {
+            width: auto; /* Auto width for delete button */
+        }
+		table {
+			border-collapse: collapse; /* Ensures borders do not double up */
+			width: 100%; /* Optional: Makes table full-width */
+		}
+
+		th, td {
+			padding: 10px; /* Adjusts cell padding */
+			text-align: left; /* Align text to the left */
+			border: 1px solid black; /* Adds border to each cell */
+		}
+
+		th {
+			background-color: #f2f2f2; /* Optional: Adds a background color to the header */
+		}
+
+		/* Optional: Adds hover effect */
+		tr:hover {
+			background-color: #f5f5f5;
+		}
+    </style>
+</head>
+<body>
+    <h1>Upload events</h1>
+    <form action="{{ url_for('events') }}" method="POST">
+		<input id="date" name="date" placeholder="Events date" type="date" required>
+        <textarea id="infomation" name="infomation" rows="10" placeholder="Events" required></textarea>
+        <button type="submit">Submit</button>
+    </form>
+
+    <div class="form-out">
+    {% if events %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Events</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for event in events %}
+            <tr>
+                <td>{{ event.id }}</td>
+                <td>{{ event.infomation }}</td> <!-- Corrected spelling -->
+                <td>{{ event.date }}</td>
+                <td>
+                    <form method="POST" action="{{ url_for('delete_events', id=event.id) }}" style="display:inline;">
+                        <button type="submit" onclick="return confirm('Are you sure you want to delete this item?');">Delete</button>
+                    </form>
+                </td>
+            </tr> <!-- Correctly closed <tr> -->
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>
+        No Upcoming Events<br>
+        Enjoy the silence
+    </p>
+    {% endif %}
+</div>
+
+</body>
+</html>
