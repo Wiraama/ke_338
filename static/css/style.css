@@ -1566,10 +1566,10 @@ img {
     }
 
     th {
-        background-color: #f2f2f2; /* Optional: Adds a background color to the header */
+        background-color: #101211; /* Optional: Adds a background color to the header */
     }
 
     /* Optional: Adds hover effect */
     tr:hover {
-        background-color: #f5f5f5;
+        background-color: #101211;
     }
