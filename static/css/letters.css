@@ -57,11 +57,13 @@ body::before {
         padding: 10px; /* Adjusts cell padding */
         text-align: left; /* Align text to the left */
         border: 1px solid black; /* Adds border to each cell */
+		color: white;
     }
 
     th {
         background-color: #101211; /* Optional: Adds a background color to the header */
-    }
+
+	}
 
     /* Optional: Adds hover effect */
     tr:hover {

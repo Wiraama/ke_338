@@ -104,6 +104,7 @@ img {
   display: inline;
   float: left;
   font-size: 14px;
+  color: white;
 }
 #mu-header .mu-header-area .mu-header-top-left .mu-top-email i {
   margin-right: 5px;
@@ -114,6 +115,7 @@ img {
   font-size: 14px;
   float: left;
   margin-left: 15px;
+  color: white;
   padding-left: 15px;
 }
 #mu-header .mu-header-area .mu-header-top-left .mu-top-phone i {
