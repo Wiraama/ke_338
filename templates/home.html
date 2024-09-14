@@ -49,11 +49,11 @@
                 <div class="mu-header-top-left">
                   <div class="mu-top-email">
                     <i class="fa fa-envelope"></i>
-                    <span style="color: white;">Done by wiriama</span>
+                    <span style="color: white;"><a href="mailto:nicholasmawira6@gmail.com?subject=Need%20Such%20a%20Web%20body=Hello%20I%20need%20such%20a%20web">Done by wiriama</a></span>
                   </div>
                   <div class="mu-top-phone">
                     <i class="fa fa-phone"></i>
-                    <span style="color: white;">+254 745 040967</span>
+                    <span style="color: white;"><a href="tel:+254745040967">+254 745 040967</a></span>
                   </div>
                 </div>
               </div>
@@ -100,7 +100,8 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul id="top-menu" class="nav navbar-nav navbar-right main-nav">          
             <li><a href="/letter">Letters</a></li>
-            <li><a href="#">Contacts</a></li>
+            <li><a href="#mu-about-us">About Us</a></li>
+			<li><a href="#mu-footer">Contacts</a></li>
             <li><a href="#" id="mu-search-icon"><i class="fa fa-search"></i></a></li>
           </ul> 
         </div><!--/.nav-collapse -->        
@@ -228,7 +229,18 @@
         <h4 style="font-family: playwrite cuba;">Graduating Students</h4>
         <span></span>
         <h2 style="font-family: playwrite cuba;">Bye Bye</h2>
-        <p>Nothing Here</p>
+        <p>
+			{% if outdated %}
+            {% for student in outdated %}
+                <p>
+					{{ student.ben_number }}
+					{{ full_names[student.ben_number] }}
+                </p>
+            {% endfor %}
+			{% else %}
+				<p>No Graduating Students</p>
+			{% endif %}
+		</p>
       </div>
     </div>
     <!-- Start single slider item -->    
@@ -300,7 +312,10 @@
               <div class="col-lg-6 col-md-6">
 			  </div>
 			  <div class="mu-about-us-right">
-				<iframe id="mu-abtus-video" width="100%" height="315" src="https://www.youtube.com/embed/P4hzjCjde38" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+				<video id="mu-abtus-video" width="100%" height="400" controls>
+					<source src="{{ url_for('static', filename='videos/video.mp4') }}" type="video/mp4">
+					Your browser does not support the video tag.
+				</video>
 			  </div>
             </div>
           </div>

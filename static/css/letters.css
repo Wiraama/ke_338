@@ -1,11 +1,11 @@
 body {
-        font-family: Roboto, san-serif;
+        font-family: Roboto, sans-serif;
         margin: 0;
         padding: 0;
         display: flex;
         flex-direction: column;
         align-items: left;
-        justify-content: center;
+        justify-content: flex-start;
         height: 100vh;
 		overflow: hidden;
 }
@@ -16,7 +16,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('logo1.jpg');
+    background-image: url('write.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -44,4 +44,26 @@ body::before {
         padding: 1px 0;
         width: 100%;
         text-align: center;
-}
+	}
+	table {
+        border-collapse: collapse; /* Ensures borders do not double up */
+        width: 100%; /* Optional: Makes table full-width */
+    }
+	.table-container {
+		max-height: 400px;
+		overflow-y: auto;
+
+    th, td {
+        padding: 10px; /* Adjusts cell padding */
+        text-align: left; /* Align text to the left */
+        border: 1px solid black; /* Adds border to each cell */
+    }
+
+    th {
+        background-color: #101211; /* Optional: Adds a background color to the header */
+    }
+
+    /* Optional: Adds hover effect */
+    tr:hover {
+        background-color: #101211;
+    }

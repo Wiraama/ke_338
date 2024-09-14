@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graduating Students</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+			background-image: url('/static/images/teach.png');
+			background-size: cover;
+			background-repeat: no-repeat;
+			background-position: center;
+        }
+
+        form {
+            max-width: 400px;
+            margin: auto;
+            padding: 50px;
+        }
+
+        label, input, select, textarea, button {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+			background-color: #171159;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .form-out {
+            width: 100%;
+            max-width: 500px; /* Limit the width of the form */
+            margin: 20px auto; /* Center horizontally */
+        }
+
+        .form-out p {
+            margin-bottom: 5px;
+        }
+		select {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #fff;
+		}
+
+        .form-out button {
+            width: auto; /* Auto width for delete button */
+        }
+    </style>
+</head>
+<body>
+    <h1>graduating</h1>
+    <form action="{{ url_for('outdated') }}" method="POST">
+        <textarea id="ben_number" name="ben_number" rows="10" placeholder="Enter Beneficiary numbers" required></textarea>
+        <button type="submit">Submit</button>
+    </form>
+
+    <div class="form-out">
+        {% if outdated %}
+            {% for student in outdated %}
+                <p>
+					{{ student.ben_number }}
+					{{ full_name[student.ben_number] }}
+					<form method="POST" action="{{ url_for('delete_outdated', id=student.id) }}" style="display:inline;">
+						<button type="submit" onclick="return confirm('Are you sure you want to delete this item?');">Delete</button>
+					</form>
+                </p>
+            {% endfor %}
+        {% else %}
+            <p>No Graduating Students</p>
+        {% endif %}
+    </div>
+</body>
+</html>

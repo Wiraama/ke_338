@@ -16,9 +16,33 @@
     </header>
 
     <main style="font-style: sevvilla">
-        <p>
-			This is a sample webpage with a favicon and some basic content.
-		</p>
+        {% if letters %}
+			<div class="table-container">
+				<table>
+					<thead>
+						<tr>
+							<th>No.</th>
+							<th>Type</th>
+							<th>Name</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for letter in letters %}
+						<tr>
+							<td>{{ letter.ben_number }}</td> <!-- Corrected spelling -->
+							<td>{{ letter.type }}</td>
+							<td>{{ full_name[letter.ben_number] }}</td>
+						</tr> <!-- Correctly closed <tr> -->
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			{% else %}
+			<p>
+				No letters Available<br>
+				Enjoy the silence
+			</p>
+			{% endif %}
     </main>
 
     <footer>

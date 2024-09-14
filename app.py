@@ -242,59 +242,100 @@ class Letters(db.Model):
     ben_number = db.Column(db.Integer, nullable=False)
 
 
+# letter part
+@app.route('/letter')
+@require_login
+def letter():
+    letters = Letters.query.all()
+    letters = sorted(letters, key=lambda letter: letter.ben_number)
+    full_name = {}
+    for letter in letters:
+        user = User.query.filter_by(ben_number=letter.ben_number).first()
+        if user:
+            full_name[letter.ben_number] = f"{user.f_name} {user.s_name}"
+        else:
+            full_name[letter.ben_number] = ""
+    return render_template('letters.html', letters=letters, full_name=full_name)
+
 @app.route('/post_letters', methods=['GET', 'POST'])
 def post_letters():
     if request.method == 'POST':
         type = request.form.get('type')
-        ben_number = request.form.get('ben_number')
+        ben_numbers = request.form.get('ben_number')
+        
+        ben_number_list = [num.strip() for num in ben_numbers.split(' ')]
 
-        new_data = Letters(
-            type=type,
-            ben_number=ben_number,
-            )
-        db.session.add(new_data)
+        for ben_number in ben_number_list:
+            new_data = Letters(
+                type=type,
+                ben_number=ben_number,
+                )
+            db.session.add(new_data)
         db.session.commit()
-        data = User.query.filter_by(ben_number=ben_number).first()
-        if data:
-            full_name = data.f_name + " " + data.s_name
+  
         return redirect(url_for('post_letters'))
-    else:
-        full_name = ""
-    letters = Letters.query.all()
     
+    letters = Letters.query.all()
+    letters = sorted(letters, key=lambda letter: letter.ben_number)
+    full_name = {}
+    for letter in letters:
+        user = User.query.filter_by(ben_number=letter.ben_number).first()
+        if user:
+            full_name[letter.ben_number] = f"{user.f_name} {user.s_name}"
+        else:
+            full_name[letter.ben_number] = ""
+
+
     return render_template('post_letters.html', letters=letters, full_name=full_name)
 
+@app.route('/delete_letters', methods=['POST'])
+def delete_letters():
+    delete_all = request.form.getlist('ben_numbers')
+    
+    if delete_all:
+        for ben_number in delete_all:
+            letter_del = Letters.query.filter_by(ben_number=ben_number).first()
+            if letter_del:
+                db.session.delete(letter_del)
+    db.session.commit()
+    return redirect(url_for('post_letters'))
 
-# sorting
-def merge_sort(array):
-    if len(array) > 1:
-        mid = len(array) // 2
-        left_half = array[:mid]
-        right_half = array[mid:]
-        merge_sort(left_half)
-        merge_sort(right_half)
+#Outdated
+class Outdated(db.Model):
+    __tablename__ = 'outdated'
+    id = db.Column(db.Integer, primary_key=True)
+    ben_number = db.Column(db.Integer, nullable=False)
 
-        i = j = k = 0
-        while i < len(left_half) and j < len(right_half):
-            if left_half[i] < right_half[j]:
-                array[k] = left_half[i]
-                i += 1
-            else:
-                array[k] = right_half[j]
-                j += 1
-            k += 1
+@app.route('/outdated', methods=['GET', 'POST'])
+def outdated():
+    if request.method == 'POST':
+        ben_numbers = request.form.get('ben_number')
+        ben_num_list = [num.strip() for num in ben_numbers.split(' ')]
+        
+        for ben_number in ben_num_list:
+            new_data = Outdated(
+                ben_number=ben_number,
+                )
+            db.session.add(new_data)
+        db.session.commit()
+        return redirect(url_for('outdated'))
+    outdated = Outdated.query.all()
+    outdated = sorted(outdated, key=lambda leave: leave.ben_number)
+    full_name = {}
+    for ben_num in outdated:
+        user = User.query.filter_by(ben_number=ben_num.ben_number).first()
+        if user:
+            full_name[ben_num.ben_number] = f"{user.f_name} {user.s_name}"
 
-        while i < len(left_half):
-            array[k] = left_half[i]
-            i += 1
-            k += 1
+    return render_template('outdated.html', outdated=outdated, full_name=full_name)
 
-        while j < len(right_half):
-            array[k] = right_half[j]
-            j += 1
-            k += 1
-    return array
-
+# delete
+@app.route('/delete_outdated/<int:id>', methods=['POST'])
+def delete_outdated(id):
+    delete_data = Outdated.query.get(id)
+    db.session.delete(delete_data)
+    db.session.commit()
+    return redirect(url_for('outdated'))
 
 # landing page
 @app.route('/landing')
@@ -321,18 +362,20 @@ def home():
     user = User.query.filter_by(ben_number=ben_number).first()
     announce = Announce.query.all()
     events = Events.query.all()
+    outdated = Outdated.query.all()
+    outdated = sorted(outdated, key=lambda student: student.ben_number)
 
+    full_names = {}
+    for ben_num in outdated:
+        user = User.query.filter_by(ben_number=ben_num.ben_number).first()
+        if user:
+            full_names[ben_num.ben_number] = f"{user.f_name} {user.s_name}"
 
     if user:
         full_name = f"{user.f_name} {user.s_name}"
         
-    return render_template('home.html', events=events, full_name=full_name, announce=announce)
+    return render_template('home.html', events=events, full_name=full_name, announce=announce, outdated=outdated, full_names=full_names)
 
-# letter part
-@app.route('/letter')
-@require_login
-def letter():
-    return render_template('letters.html')
 
 
 if __name__ == '__main__':
