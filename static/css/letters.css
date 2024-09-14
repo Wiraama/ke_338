@@ -50,7 +50,7 @@ body::before {
         width: 100%; /* Optional: Makes table full-width */
     }
 	.table-container {
-		max-height: 600px;
+		max-height: 700px;
 		overflow-y: auto;
 
     th, td {
