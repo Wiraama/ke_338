@@ -141,7 +141,7 @@ def reset_password():
         flash('Save go to login', 'success')
         return redirect(url_for('login'))
     return render_template('reset_password.html')
-    
+
 
 # decorator ensure to start on login
 def require_login(f):
@@ -151,18 +151,10 @@ def require_login(f):
             return redirect(url_for('login'))
         return f(*args, **kwargs)
     return decorated_function
-    
-    
-# admin part
-def admin_login():
-    # admin login
-    passkey = '876543210'
-    password = request.form.get('password')
-    if password == passkey:
-        return render_template('admin.html')
-    return render_template('admin_log.html')
-    
 
+
+
+######################## announce ##############################
 class Announce(db.Model):
     __tablename__ = 'announce'
     id = db.Column(db.Integer, primary_key=True)
@@ -192,8 +184,9 @@ def delete_announce(id):
     db.session.delete(delete_data)
     db.session.commit()
     return redirect(url_for('announce_data'))
+######################### end of announce ###########################
 
-# Events
+################################## Events #############################
 class Events(db.Model):
     __tablename__ = 'events'
     id = db.Column(db.Integer, primary_key=True)
@@ -224,25 +217,18 @@ def delete_events(id):
     db.session.delete(delete_data)
     db.session.commit()
     return redirect(url_for('events'))
+################################ end Events  ###############################
 
-# delete
-@app.route('/delete/<int:id>', methods=['POST'])
-def delete(id):
-    delete_data = Data.query.get(id)
-    db.session.delete(delete_data)
-    db.session.commit()
-    return redirect(url_for('announce_data'))
-    
 
+# #####################################letter part############################
 # posting letter
 class Letters(db.Model):
     __tablename__ = 'letters'
     id = db.Column(db.Integer, primary_key=True)
     type = db.Column(db.String, nullable=False)
     ben_number = db.Column(db.Integer, nullable=False)
-
-
-# letter part
+    
+    
 @app.route('/letter')
 @require_login
 def letter():
@@ -299,8 +285,10 @@ def delete_letters():
                 db.session.delete(letter_del)
     db.session.commit()
     return redirect(url_for('post_letters'))
+##########################end of letters###########################
 
-#Outdated
+
+##############################Outdated############################
 class Outdated(db.Model):
     __tablename__ = 'outdated'
     id = db.Column(db.Integer, primary_key=True)
@@ -336,8 +324,10 @@ def delete_outdated(id):
     db.session.delete(delete_data)
     db.session.commit()
     return redirect(url_for('outdated'))
+##########################end of outdated###########################
 
-# landing page
+
+###############################landing page####################
 @app.route('/landing')
 def landing():
     first_time = request.cookies.get('first_time')
@@ -347,14 +337,16 @@ def landing():
         response = make_response(redirect(url_for('landing')))
         response.set_cookie('first_time', 'no', max_age=60*60*24*30*12)
         return response
+#################################end of landing page################################
 
 
+###########################admin page ##############################
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
     return render_template('admin.html')
- 
+##################end of admin page####################################
 
-# home part
+########################$$$$ home part##############################
 @app.route('/')
 @require_login
 def home():
@@ -375,8 +367,7 @@ def home():
         full_name = f"{user.f_name} {user.s_name}"
         
     return render_template('home.html', events=events, full_name=full_name, announce=announce, outdated=outdated, full_names=full_names)
-
-
+###########################end of home part #############################
 
 if __name__ == '__main__':
     with app.app_context():
