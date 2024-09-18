@@ -12,6 +12,7 @@ body {
 body::before {
     content: "";
     position: absolute;
+	color: green;
     top: 0;
     left: 0;
     width: 100%;

@@ -69,6 +69,7 @@ body {
 		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;
+		color: white;
 	}
 
 	.features h2 {
@@ -84,6 +85,7 @@ body {
 	.about {
 		padding: 50px 0;
 		background-color: #080317;
+		color: white;
 	}
 
 	.about h2 {
